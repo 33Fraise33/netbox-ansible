@@ -11,6 +11,7 @@ token: !vault |
   3165626665323566653230656234373131623563383832303466
 config_context: true
 flatten_config_context: true
+interfaces: true
 keyed_groups:
   - prefix: role
     key: role.slug
