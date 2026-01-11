@@ -1,5 +1,6 @@
 ---
 plugin: netbox.netbox.nb_inventory
+# QUERY CONFIG
 api_endpoint: https://netbox.frai.se
 token: !vault |
   $ANSIBLE_VAULT;1.1;AES256
@@ -9,9 +10,10 @@ token: !vault |
   6664666565373831330a633738373437633963363336343938313737333636666131356162653632
   38386661663061313838356335353165363864336432343039633139303563386335336438323263
   3165626665323566653230656234373131623563383832303466
-config_context: true
-flatten_config_context: true
-interfaces: true
+query_filters:
+  - status: active
+  - has_primary_ip: 'true'
+# RETURN VALUE CONFIG
 keyed_groups:
   - prefix: role
     key: role.slug
@@ -25,6 +27,12 @@ keyed_groups:
     key: site.slug
   - prefix: tag
     key: tags
-query_filters:
-  - status: active
-  - has_primary_ip: 'true'
+config_context: true
+flatten_config_context: true
+interfaces: true
+virtual_disks: true
+# CACHE CONFIG
+cache: true
+cache_plugin: jsonfile
+cache_connection: /tmp/ansible_inventory_cache
+cache_prefix: netbox_
